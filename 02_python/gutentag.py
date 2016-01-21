@@ -1,4 +1,4 @@
 import os
 
-name = os.environ['USER']
-print("Guten Tag, ", name)
+homedir = os.environ['HOME']
+print("Guten Tag, Dein Heimatverzeichnis ist ", homedir)
