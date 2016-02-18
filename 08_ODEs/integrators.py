@@ -95,7 +95,7 @@ def analyze_energies(t, y, U, m=1, step=1):
     ax = plt.subplot(2, 1, 2)
     ax.plot(times, e_prec[::step])
     ax.set_xlabel("time")
-    ax.set_ylabel("relative error energy")
+    ax.set_ylabel("log(relative error energy)")
 
     #return ax.figure
 
