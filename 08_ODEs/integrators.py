@@ -72,8 +72,18 @@ def kinetic_energy(v, m=1):
     # IMPLEMENT
     return None
 
-def energy_precision(energy):
-    return np.log10(np.abs(energy[0]/energy - 1))
+def energy_precision(energy, machine_precision=1e-15):
+    """log10 of relative energy conservation"""
+    # avoid divide by zero by replacing 0 with machine precision 1e-15
+    eps_m = 1e-15
+    zeros = np.isclose(energy, 0, atol=machine_precision, rtol=machine_precision)
+    E = energy.copy()
+    E[zeros] = machine_precision
+    DeltaE = np.abs(E[0]/E - 1)
+    # filter any zeros
+    zeros = np.isclose(DeltaE, 0, atol=machine_precision, rtol=machine_precision)
+    DeltaE[zeros] = machine_precision
+    return np.log10(DeltaE)
 
 def analyze_energies(t, y, U, m=1, step=1):
     x, v = y.T
