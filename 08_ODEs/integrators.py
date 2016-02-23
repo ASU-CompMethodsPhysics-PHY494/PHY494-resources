@@ -72,15 +72,32 @@ def kinetic_energy(v, m=1):
     # IMPLEMENT
     return None
 
+def energy_conservation(t, y, U, m=1):
+    """Energy drift (Tuckerman Eq 3.14.1)"""
+    x, v = y.T
+    KE = kinetic_energy(v, m=m)
+    PE = U(x)
+    E = KE + PE
+
+    machine_precision = 1e-15
+    if np.isclose(E[0], 0, atol=machine_precision, rtol=machine_precision):
+        # if E[0] == 0 then replace with machine precision (and expect bad results)
+        E[0] = machine_precision
+    return np.mean(np.abs(E/E[0] - 1))
+
 def energy_precision(energy, machine_precision=1e-15):
     """log10 of relative energy conservation"""
-    # avoid divide by zero by replacing 0 with machine precision 1e-15
     eps_m = 1e-15
-    zeros = np.isclose(energy, 0, atol=machine_precision, rtol=machine_precision)
-    E = energy.copy()
-    E[zeros] = machine_precision
-    DeltaE = np.abs(E[0]/E - 1)
+    if np.isclose(energy[0], 0, atol=machine_precision, rtol=machine_precision):
+        # if E[0] == 0 then replace with machine precision (and expect bad results)
+        E = energy.copy()
+        E[0] = machine_precision
+    else:
+        # don't modify input energies
+        E = energy
+    DeltaE = np.abs(E/E[0] - 1)
     # filter any zeros
+    # (avoid log of zero by replacing 0 with machine precision 1e-15)
     zeros = np.isclose(DeltaE, 0, atol=machine_precision, rtol=machine_precision)
     DeltaE[zeros] = machine_precision
     return np.log10(DeltaE)
