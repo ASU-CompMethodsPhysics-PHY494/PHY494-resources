@@ -65,6 +65,25 @@ def rk4(y, f, t, h):
     """Runge-Kutta RK4"""
     # IMPLEMENT
 
+def velocity_verlet(y, f, t, h):
+    """Velocity Verlet
+
+    Bad implementation because the force is calculated twice; should
+    remember the second force calculation and use as input for the
+    next step.
+
+    """
+    # half step velocity
+    F = f(t, y)
+    y[1] += 0.5*h * F[1]
+    # full step position
+    y[0] += h*y[1]
+    # full step velocity (updated positions!)
+    F = f(t+h, y)
+    y[1] += 0.5*h * F[1]
+
+    return y
+
 #------------------------------------------------------------
 # analysis
 
@@ -187,6 +206,63 @@ def integrate_newton(x0=0, v0=1, t_max=100, h=0.001, mass=1,
 
     # initial conditions
     y[0, :] = x0, v0
+
+    # build a function with "our" force
+    def f(t, y):
+        """ODE force vector"""
+        return f_standard(t, y, force, m=mass)
+
+    for i, t in enumerate(t_range[:-1]):
+        y[i+1, :] = integrator(y[i], f, t, h)
+
+    return t_range, y
+
+
+def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
+                        force=F_harmonic, integrator=euler):
+    """Integrate Newton's equations of motions in 2D.
+
+    Note that all problem parameters must be set consistently in the
+    force function.
+
+    The force function and the integrator must be able to work with
+    n-dimensional position and velocity vectors.
+
+    Arguments
+    ---------
+    x0 : array
+       initial position
+    v0 : array
+       initial velocity
+    t_max : float
+       time to integrate out to
+    h : float (default 0.001)
+       integration time step
+    mass : float (default 1)
+       mass of the particle
+    force : function `f(x)`
+       function that returns the force when particle is
+       at position `x`
+    integrator : function `I(y, f, t, h)`
+       function that takes the ODE standard form vectors y and f
+       together with the current time and the step `h` and returns
+       y at time t+h.
+
+    Returns
+    -------
+    Tuple ``(t, y)`` with times and the ODE standard form vector.
+    `y[:, 0]` is position and `y[:, 1]` velocity.
+
+    """
+    dim = 2
+
+    Nsteps = t_max/h
+    t_range = h * np.arange(Nsteps)
+    y = np.zeros((len(t_range), 2, dim))
+
+    # initial conditions
+    y[0, 0, :] = x0
+    y[0, 1, :] = v0
 
     # build a function with "our" force
     def f(t, y):
