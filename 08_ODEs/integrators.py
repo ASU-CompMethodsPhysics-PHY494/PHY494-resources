@@ -1,12 +1,6 @@
-# integrators for lesson 08 ODEs --- student version
+# integrators for lesson 08 ODEs --- student version (complete)
 # Copyright (c) 2016 Oliver Beckstein.
 # License: BSD-3 clause
-
-#============================================================
-# NOTE: Code is incomplete. You need to make it work
-#       (see comment IMPLEMENT and replace None with
-#       appropriate code)
-#============================================================
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,7 +23,7 @@ def U_harmonic(x, k=1):
 
 def F_anharmonic(x, k=1, alpha=0.5):
     """Anharmonic force"""
-    # IMPLEMENT
+    return -k*x * (1 - alpha*x)
 
 def U_anharmonic(x, k=1, alpha=0.5):
     """Anharmonic potential U(x) = 1/2 k x**2 (1 - 2/3 alpha x)"""
@@ -37,7 +31,7 @@ def U_anharmonic(x, k=1, alpha=0.5):
 
 def F_power(x, k=1, p=6):
     """Force for k/p x^p potential."""
-    # IMPLEMENT
+    return -k * x**(p-1)
 
 def U_power(x, k=1, p=6):
     """Even-power potential U(x) = k/p x**p"""
@@ -59,11 +53,17 @@ def euler(y, f, t, h):
 
 def rk2(y, f, t, h):
     """Runge-Kutta RK2 midpoint"""
-    # IMPLEMENT
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    return y + h*k2
 
 def rk4(y, f, t, h):
     """Runge-Kutta RK4"""
-    # IMPLEMENT
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    k3 = f(t + 0.5*h, y + 0.5*h*k2)
+    k4 = f(t + h, y + h*k3)
+    return y + h/6 * (k1 + 2*k2 + 2*k3 + k4)
 
 def velocity_verlet(y, f, t, h):
     """Velocity Verlet
@@ -88,8 +88,8 @@ def velocity_verlet(y, f, t, h):
 # analysis
 
 def kinetic_energy(v, m=1):
-    # IMPLEMENT
-    return None
+    """Kinetic energy 1/2 m v**2"""
+    return 0.5*m*v**2
 
 def energy_conservation(t, y, U, m=1):
     """Energy drift (Tuckerman Eq 3.14.1)"""
@@ -106,7 +106,6 @@ def energy_conservation(t, y, U, m=1):
 
 def energy_precision(energy, machine_precision=1e-15):
     """log10 of relative energy conservation"""
-    eps_m = 1e-15
     if np.isclose(energy[0], 0, atol=machine_precision, rtol=machine_precision):
         # if E[0] == 0 then replace with machine precision (and expect bad results)
         E = energy.copy()
@@ -217,59 +216,3 @@ def integrate_newton(x0=0, v0=1, t_max=100, h=0.001, mass=1,
 
     return t_range, y
 
-
-def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
-                        force=F_harmonic, integrator=euler):
-    """Integrate Newton's equations of motions in 2D.
-
-    Note that all problem parameters must be set consistently in the
-    force function.
-
-    The force function and the integrator must be able to work with
-    n-dimensional position and velocity vectors.
-
-    Arguments
-    ---------
-    x0 : array
-       initial position
-    v0 : array
-       initial velocity
-    t_max : float
-       time to integrate out to
-    h : float (default 0.001)
-       integration time step
-    mass : float (default 1)
-       mass of the particle
-    force : function `f(x)`
-       function that returns the force when particle is
-       at position `x`
-    integrator : function `I(y, f, t, h)`
-       function that takes the ODE standard form vectors y and f
-       together with the current time and the step `h` and returns
-       y at time t+h.
-
-    Returns
-    -------
-    Tuple ``(t, y)`` with times and the ODE standard form vector.
-    `y[:, 0]` is position and `y[:, 1]` velocity.
-
-    """
-    dim = 2
-
-    Nsteps = t_max/h
-    t_range = h * np.arange(Nsteps)
-    y = np.zeros((len(t_range), 2, dim))
-
-    # initial conditions
-    y[0, 0, :] = x0
-    y[0, 1, :] = v0
-
-    # build a function with "our" force
-    def f(t, y):
-        """ODE force vector"""
-        return f_standard(t, y, force, m=mass)
-
-    for i, t in enumerate(t_range[:-1]):
-        y[i+1, :] = integrator(y[i], f, t, h)
-
-    return t_range, y
