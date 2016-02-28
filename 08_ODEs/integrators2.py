@@ -1,4 +1,4 @@
-# integrators for lesson 08 ODEs --- student version
+# integrators for lesson 08 ODEs
 # Copyright (c) 2016 Oliver Beckstein.
 # License: BSD-3 clause
 
@@ -46,7 +46,8 @@ def unitvector(r):
     return rr, rhat
 
 def F_gravity(r, m=1, G=1, M=1):
-    raise NotImplementedError  ## replace with code, use unitvector
+    rr, rhat = unitvector(r)
+    return - G*m*M/rr**2 * rhat
 
 def U_gravity(r, m=1, G=1, M=1):
     rr, rhat = unitvector(r)
