@@ -1,15 +1,8 @@
-# bug 6
+# bug 5
 # http://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/2017/01/24/04_Debugging_1/#activity-fix-as-many-bugs-as-possible
 
-# The sinc function is defined for all real numbers
-# but this implementation is incomplete.
-# 1. find values for which our function does not produce the correct
-#    result
-# 2. fix it
-# 3. BONUS: plot sinc(x) for values from -10 to 10 in steps
-#    of 0.2.
+# Create a list of values -10, -9.8, -9.6, ..., -0.2, 0, 0.2, ..., 10.
 
-import math
-def sinc(x):
-   return math.sin(x)/x
+h = 0.2
+x = [-10 + i*h for i in range(100)]
 

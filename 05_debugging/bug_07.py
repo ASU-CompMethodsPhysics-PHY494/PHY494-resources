@@ -1,16 +1,15 @@
-# bug 7
+# bug 6
 # http://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/2017/01/24/04_Debugging_1/#activity-fix-as-many-bugs-as-possible
 
-# Create a list of squares of the first 10 natural numbers (0, 1, 2, ..., 10) and print their sum:
+# The sinc function is defined for all real numbers
+# but this implementation is incomplete.
+# 1. find values for which our function does not produce the correct
+#    result
+# 2. fix it
+# 3. BONUS: plot sinc(x) for values from -10 to 10 in steps
+#    of 0.2.
 
-squares = []
-s = 0
-for n in range(1, 10):
-   squares.append(s)
-   s = n*n
-   print(n, s)
+import math
+def sinc(x):
+   return math.sin(x)/x
 
-sum_s = sum(squares)
-print("sum of squares", sum_s)
-
-# should be 385

@@ -1,8 +1,7 @@
-# bug 5
+# bug 4
 # http://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/2017/01/24/04_Debugging_1/#activity-fix-as-many-bugs-as-possible
 
-# Create a list of values -10, -9.8, -9.6, ..., -0.2, 0, 0.2, ..., 10.
+# Show that my favorite season in Arizona is winter:
 
-h = 0.2
-x = [-10 + i*h for i in range(100)]
-
+seasons = ['Spring', 'Summer', 'Fall', 'Winter']
+print('My favorite season is ', seasons[4])
