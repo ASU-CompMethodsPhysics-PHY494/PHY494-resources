@@ -1,17 +1,10 @@
-# integrators for lesson 11 ODEs --- Student version
-# Copyright (c) 2016 Oliver Beckstein.
+# integrators for lesson 11 ODEs
+# Copyright (c) 2016,2017 Oliver Beckstein.
 # License: BSD-3 clause
 
 # Integrating Newton's Equations of Motions in 2D... nD
 # (very similar to integrators.py but includes a few more numpy
 # tricks to make higher dimensional positions/velocities work)
-
-#============================================================
-# NOTE: Code is incomplete. You need to make it work
-#       (see comment INCOMPLETE and replace
-#       'raise NotImplementedError' with appropriate code)
-#============================================================
-
 
 import numpy as np
 import numpy.linalg
@@ -65,8 +58,8 @@ M_sun = 1.0
 M_earth = 3.003467e-6
 
 def F_gravity(r, m=M_earth, M=M_sun, **kwargs):
-    # INCOMPLETE, remove next line and add your code
-    raise NotImplementedError
+    rr, rhat = unitvector(r)
+    return -G_gravity*m*M/rr**2 * rhat
 
 def U_gravity(r, m=M_earth, M=M_sun, **kwargs):
     rr, rhat = unitvector(r)
@@ -107,13 +100,17 @@ def euler(y, f, t, h):
 
 def rk2(y, f, t, h):
     """Runge-Kutta RK2 midpoint"""
-    raise NotImplementedError
-
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    return y + h*k2
 
 def rk4(y, f, t, h):
     """Runge-Kutta RK4"""
-    raise NotImplementedError
-
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    k3 = f(t + 0.5*h, y + 0.5*h*k2)
+    k4 = f(t + h, y + h*k3)
+    return y + h/6 * (k1 + 2*k2 + 2*k3 + k4)
 
 def velocity_verlet(y, f, t, h):
     """Velocity Verlet
