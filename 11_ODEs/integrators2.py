@@ -8,8 +8,8 @@
 
 #============================================================
 # NOTE: Code is incomplete. You need to make it work
-#       (see comment IMPLEMENT and replace None with
-#       appropriate code)
+#       (see comment INCOMPLETE and replace
+#       'raise NotImplementedError' with appropriate code)
 #============================================================
 
 
@@ -54,7 +54,7 @@ def unitvector(r):
 
 def F_gravity(r, m=1, G=1, M=1):
     # INCOMPLETE, remove next line and add your code
-    raise NotImplementeError
+    raise NotImplementedError
 
 def U_gravity(r, m=1, G=1, M=1):
     rr, rhat = unitvector(r)
@@ -71,7 +71,8 @@ def U_harmonic(r, k=1):
 
 def F_power(r, k=1, p=6):
     # INCOMPLETE, remove next line and add your code
-    raise NotImplementeError
+    raise NotImplementedError
+
 
 def U_power(r, k=1, p=6):
     """Even-power potential U(x) = k/p x**p"""
@@ -94,26 +95,25 @@ def euler(y, f, t, h):
 
 def rk2(y, f, t, h):
     """Runge-Kutta RK2 midpoint"""
-
-    """Force for k/p x^p potential."""
-    rr, rhat = unitvector(r)
-    return -k * rr**(p-1) * rhat
+    raise NotImplementedError
 
 
 def rk4(y, f, t, h):
     """Runge-Kutta RK4"""
-
-    """Force for k/p x^p potential."""
-    rr, rhat = unitvector(r)
-    return -k * rr**(p-1) * rhat
+    raise NotImplementedError
 
 
 def velocity_verlet(y, f, t, h):
     """Velocity Verlet
 
-    Bad implementation because the force is calculated twice; should
-    remember the second force calculation and use as input for the
-    next step.
+    Low-performance implementation because the force is calculated
+    twice; should remember the second force calculation and use as
+    input for the next step.
+
+    For comparing different algorithms it is ok to use this
+    implementation for convenience. For production level code you
+    should use a better implementation that saves the second force
+    evaluation.
 
     """
     # half step velocity
@@ -122,6 +122,7 @@ def velocity_verlet(y, f, t, h):
     # full step position
     y[0] += h*y[1]
     # full step velocity (updated positions!)
+    # NOTE: this force evaluation should be used for the next iteration!!!
     F = f(t+h, y)
     y[1] += 0.5*h * F[1]
 
