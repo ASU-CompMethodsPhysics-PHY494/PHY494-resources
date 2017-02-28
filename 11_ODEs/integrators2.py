@@ -19,16 +19,21 @@ import numpy.linalg
 import matplotlib.pyplot as plt
 
 #------------------------------------------------------------
-# forces
+# force and potential energy functions
 #
-# All functions need to accept as argument the position x
+# All force functions need to accept as argument the position x
 # and return the force.
-# Additional parameters should be added as optional keyword
-# arguments.
+#
+# Each function always takes the position x (n-d array)
+# and any additional parameters needed to specify the force law.
+# The **kwargs parameter swallows any other un-used keyword
+# arguments and allows us to use the same framework with different
+# force laws.
 #
 # The functions can take lists/arrays of n-dimensional vectors
 # and will produce equivalent arrays of force vectors or
 # n-dim arrays containing energies
+
 
 # central forces
 
@@ -52,29 +57,36 @@ def unitvector(r):
     rhat = r/rr
     return rr, rhat
 
-def F_gravity(r, m=1, G=1, M=1):
+
+# constant of gravity when usinh AU for length, solar mass for
+# mass, and years for time
+G_gravity = 4*np.pi**2
+M_sun = 1.0
+M_earth = 3.003467e-6
+
+def F_gravity(r, m=M_earth, M=M_sun, **kwargs):
     # INCOMPLETE, remove next line and add your code
     raise NotImplementedError
 
-def U_gravity(r, m=1, G=1, M=1):
+def U_gravity(r, m=M_earth, M=M_sun, **kwargs):
     rr, rhat = unitvector(r)
-    return np.ravel( -G*m*M/rr )
+    return np.ravel( -G_gravity*m*M/rr )
 
-def F_harmonic(r, k=1):
+def F_harmonic(r, k=1, **kwargs):
     """Harmonic force"""
     return -k*r
 
-def U_harmonic(r, k=1):
+def U_harmonic(r, k=1, **kwargs):
     """Harmonic potential  U(x) = 1/2 k x**2"""
     rr, rhat = unitvector(r)
     return np.ravel( 0.5*k*rr**2 )
 
-def F_power(r, k=1, p=6):
-    # INCOMPLETE, remove next line and add your code
-    raise NotImplementedError
+def F_power(r, k=1, p=6, **kwargs):
+    """Force for k/p x^p potential."""
+    rr, rhat = unitvector(r)
+    return -k * rr**(p-1) * rhat
 
-
-def U_power(r, k=1, p=6):
+def U_power(r, k=1, p=6, **kwargs):
     """Even-power potential U(x) = k/p x**p"""
     rr, rhat = unitvector(r)
     return np.ravel( k/p * r**p )
@@ -136,11 +148,12 @@ def kinetic_energy(v, m=1):
     # v = [[v(0)x, v(0)y], [...], ...]
     return 0.5*m*np.sum(v**2, axis=-1)
 
-def energy_conservation(t, y, U, m=1):
+def energy_conservation(t, y, U, **kwargs):
     """Energy drift (Tuckerman Eq 3.14.1)"""
+    m = kwargs.get('m', 1)
     x, v = y[:, 0], y[:, 1]
     KE = kinetic_energy(v, m=m)
-    PE = U(x)
+    PE = U(x, **kwargs)
     E = KE + PE
 
     machine_precision = 1e-15
@@ -165,10 +178,11 @@ def energy_precision(energy, machine_precision=1e-15):
     DeltaE[zeros] = machine_precision
     return np.log10(DeltaE)
 
-def analyze_energies(t, y, U, m=1, step=1):
+def analyze_energies(t, y, U, step=1, **kwargs):
+    m = kwargs.get('m', 1)
     x, v = y[:, 0], y[:, 1]
     KE = kinetic_energy(v, m=m)
-    PE = U(x)
+    PE = U(x, **kwargs)
     energy = KE + PE
 
     times = t[::step]
@@ -193,7 +207,7 @@ def analyze_energies(t, y, U, m=1, step=1):
 #------------------------------------------------------------
 # ODE integration
 
-def f_standard(t, y, force, m=1):
+def f_standard(t, y, force, **kwargs):
     """Force vector in standard ODE form (n=2)
 
     Arguments
@@ -203,17 +217,23 @@ def f_standard(t, y, force, m=1):
     y : array
         dependent variables in ODE standard form (2d)
     force : function
-        `force(y[0])` returns force (note: will not be
-        able to handle velocity dependent forces)
+        `force(y[0], **kwargs)` returns force (note: will not be
+        able to handle velocity dependent forces; may use any
+        kwargs but must ignore the ones it does not need)
     m : float
         mass
+    **kwargs : keyword arguments
+        Other kwargs that are passed to `force()` (together
+        with `m`)
     """
-    return np.array([y[1], force(y[0])/m])
+    m = kwargs.get('m', 1)
+    return np.array([y[1], force(y[0], **kwargs)/m])
 
 
 
-def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
-                        force=F_harmonic, integrator=euler):
+def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0.001, mass=1,
+                        force=F_harmonic, integrator=euler,
+                        **kwargs):
     """Integrate Newton's equations of motions in 2D.
 
     Note that all problem parameters must be set consistently in the
@@ -234,13 +254,17 @@ def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
        integration time step
     mass : float (default 1)
        mass of the particle
-    force : function `f(x)`
+    force : function `f(x, **kwargs)`
        function that returns the force when particle is
-       at position `x`
+       at position `x`; kwargs can be used to customize, e.g.,
+       `k=1` for F_harmonic or `k=1, p=6` for F_power.
     integrator : function `I(y, f, t, h)`
        function that takes the ODE standard form vectors y and f
        together with the current time and the step `h` and returns
        y at time t+h.
+    **kwargs : keyword arguments
+       Other kwargs that are passed to the `force()` function (`mass`
+       is added to the kwargs).
 
     Returns
     -------
@@ -249,7 +273,8 @@ def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
 
     """
     # code can be easily generalized to 3D
-    dim = 2
+    dim = len(x0)
+    assert len(v0) == dim
 
     Nsteps = t_max/h
     t_range = h * np.arange(Nsteps)
@@ -262,7 +287,7 @@ def integrate_newton_2d(x0=0, v0=1, t_max=100, h=0.001, mass=1,
     # build a function with "our" force
     def f(t, y):
         """ODE force vector"""
-        return f_standard(t, y, force, m=mass)
+        return f_standard(t, y, force, m=mass, **kwargs)
 
     for i, t in enumerate(t_range[:-1]):
         y[i+1, :] = integrator(y[i], f, t, h)
