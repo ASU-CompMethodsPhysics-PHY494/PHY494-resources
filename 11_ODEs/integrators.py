@@ -1,4 +1,4 @@
-# integrators for lesson 11 ODEs --- student version
+# integrators for lesson 11 ODEs
 # Copyright (c) 2016,2017 Oliver Beckstein.
 # License: BSD-3 clause
 
@@ -68,9 +68,14 @@ def rk4(y, f, t, h):
 def velocity_verlet(y, f, t, h):
     """Velocity Verlet
 
-    Bad implementation because the force is calculated twice; should
-    remember the second force calculation and use as input for the
-    next step.
+    Low-performance implementation because the force is calculated
+    twice; should remember the second force calculation and use as
+    input for the next step.
+
+    For comparing different algorithms it is ok to use this
+    implementation for convenience. For production level code you
+    should use a better implementation that saves the second force
+    evaluation.
 
     """
     # half step velocity
@@ -79,6 +84,7 @@ def velocity_verlet(y, f, t, h):
     # full step position
     y[0] += h*y[1]
     # full step velocity (updated positions!)
+    # NOTE: this force evaluation should be used for the next iteration!!!
     F = f(t+h, y)
     y[1] += 0.5*h * F[1]
 
