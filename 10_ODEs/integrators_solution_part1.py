@@ -29,7 +29,7 @@ def U_harmonic(x, k=1):
 
 def F_anharmonic(x, k=1, alpha=0.5):
     """Anharmonic force"""
-    # IMPLEMENT
+    return -k*x * (1 - alpha*x)
 
 def U_anharmonic(x, k=1, alpha=0.5):
     """Anharmonic potential U(x) = 1/2 k x**2 (1 - 2/3 alpha x)"""
@@ -37,7 +37,7 @@ def U_anharmonic(x, k=1, alpha=0.5):
 
 def F_power(x, k=1, p=6):
     """Force for k/p x^p potential."""
-    # IMPLEMENT
+    return -k * x**(p-1)
 
 def U_power(x, k=1, p=6):
     """Even-power potential U(x) = k/p x**p"""
