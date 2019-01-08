@@ -2,7 +2,7 @@
 
 The repository contains data and code to be used during the
 [PHY494 Computational Methods in Physics](http://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/)
-class (Fall 2018). It will be updated as we go along.
+class (Spring 2019). It will be updated as we go along.
 
 You only need to **clone the repository** once:
 
