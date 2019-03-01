@@ -207,18 +207,18 @@ def integrate_newton(x0=0, v0=1, t_max=100, h=0.001, mass=1,
 
     Nsteps = t_max/h
     t_range = h * np.arange(Nsteps)
-    y = np.zeros((len(t_range), 2))
+    y_values = np.zeros((len(t_range), 2))
 
     # initial conditions
-    y[0, :] = x0, v0
+    y_values[0, :] = x0, v0
 
     # build a function with "our" force
     def f(t, y):
-        """ODE force vector"""
+        """ODE force vector."""
         return f_standard(t, y, force, m=mass)
 
     for i, t in enumerate(t_range[:-1]):
-        y[i+1, :] = integrator(y[i], f, t, h)
+        y_values[i+1, :] = integrator(y_values[i], f, t, h)
 
-    return t_range, y
+    return t_range, y_values
 

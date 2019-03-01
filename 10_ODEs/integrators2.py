@@ -273,7 +273,8 @@ def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0
     Returns
     -------
     Tuple ``(t, y)`` with times and the ODE standard form vector.
-    `y[:, 0]` is position and `y[:, 1]` velocity.
+    `y[:, 0]` is position and `y[:, 1]` velocity. Note that position
+    and velocity are 2- or 3D arrays.
 
     """
     # code can be easily generalized to 3D
@@ -282,11 +283,11 @@ def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0
 
     Nsteps = int(t_max/h)
     t_range = h * np.arange(Nsteps)
-    y = np.zeros((len(t_range), 2, dim))
+    y_values = np.zeros((len(t_range), 2, dim))
 
     # initial conditions
-    y[0, 0, :] = x0
-    y[0, 1, :] = v0
+    y_values[0, 0, :] = x0
+    y_values[0, 1, :] = v0
 
     # build a function with "our" force
     def f(t, y):
@@ -294,6 +295,6 @@ def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0
         return f_standard(t, y, force, m=mass, **kwargs)
 
     for i, t in enumerate(t_range[:-1]):
-        y[i+1, :] = integrator(y[i], f, t, h)
+        y_values[i+1, :] = integrator(y_values[i], f, t, h)
 
-    return t_range, y
+    return t_range, y_values
