@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="133.196px" height="102.268px" viewBox="0 0 133.196 102.268" enable-background="new 0 0 133.196 102.268"
+	 xml:space="preserve">
+<g id="Layer_3">
+	<g>
+		<line fill="#231F20" x1="30.346" y1="55.116" x2="50.31" y2="55.116"/>
+		<g>
+			
+				<line fill="none" stroke="#D41D00" stroke-width="0.75" stroke-miterlimit="10" x1="30.346" y1="55.116" x2="31.346" y2="55.116"/>
+			
+				<line fill="none" stroke="#D41D00" stroke-width="0.75" stroke-miterlimit="10" stroke-dasharray="1.9959,1.9959" x1="33.342" y1="55.116" x2="48.312" y2="55.116"/>
+			<line fill="none" stroke="#D41D00" stroke-width="0.75" stroke-miterlimit="10" x1="49.31" y1="55.116" x2="50.31" y2="55.116"/>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 19.1855 36.3711)" fill="#D41D00" font-family="'Symbol'" font-size="12">q</text>
+	<text transform="matrix(0.583 0 0 0.583 25.4375 40.3672)" fill="#D41D00" font-family="'Symbol'" font-size="12">1</text>
+	<text transform="matrix(1 0 0 1 52.7837 59.8423)" fill="#D41D00" font-family="'Symbol'" font-size="12">q</text>
+	<text transform="matrix(0.583 0 0 0.583 59.0356 63.8384)" fill="#D41D00" font-family="'Symbol'" font-size="12">2</text>
+	<text transform="matrix(1 0 0 1 94.9355 37.4019)" fill="#D41D00" font-family="'Symbol'" font-size="12">q</text>
+	<text transform="matrix(0.583 0 0 0.583 101.1875 41.3979)" fill="#D41D00" font-family="'Symbol'" font-size="12">3</text>
+	<text transform="matrix(1 0 0 1 66.5981 64.7539)" fill="#E93400" font-family="'Helvetica-Oblique'" font-size="12">T</text>
+	<text transform="matrix(0.583 0 0 0.583 73.9282 68.75)" fill="#E93400" font-family="'Helvetica'" font-size="12">2</text>
+	<text transform="matrix(1 0 0 1 30.3462 44.3721)" fill="#E93400" font-family="'Helvetica-Oblique'" font-size="12">T</text>
+	<text transform="matrix(0.583 0 0 0.583 37.6763 48.3682)" fill="#E93400" font-family="'Helvetica'" font-size="12">1</text>
+	<text transform="matrix(1 0 0 1 83.2271 53.3296)" fill="#E93400" font-family="'Helvetica-Oblique'" font-size="12">T</text>
+	<text transform="matrix(0.583 0 0 0.583 90.5571 57.3257)" fill="#E93400" font-family="'Helvetica'" font-size="12">3</text>
+</g>
+<g id="Layer_1">
+	
+		<line fill="none" stroke="#231F20" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="10.516" y1="24.536" x2="114.488" y2="24.536"/>
+	
+		<line fill="none" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="10.516" y1="24.536" x2="30.346" y2="55.116"/>
+	
+		<line fill="none" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="30.346" y1="55.116" x2="87.059" y2="74.391"/>
+	
+		<line fill="none" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" x1="87.059" y1="74.391" x2="114.488" y2="24.536"/>
+	
+		<circle fill="#F1F2F2" stroke="#231F20" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" cx="30.346" cy="55.116" r="4.726"/>
+	
+		<circle fill="#F1F2F2" stroke="#231F20" stroke-width="0.75" stroke-linecap="round" stroke-miterlimit="10" cx="87.059" cy="74.391" r="7.877"/>
+</g>
+<g id="Layer_2">
+	<text transform="matrix(1 0 0 1 60.4121 17.9375)" font-family="'Helvetica-Oblique'" font-size="12">L</text>
+	<text transform="matrix(1 0 0 1 22.4746 73.4019)" font-family="'Helvetica-Oblique'" font-size="12">M</text>
+	<text transform="matrix(0.583 0 0 0.583 32.4707 77.3979)" font-family="'Helvetica-Oblique'" font-size="12">1</text>
+	<text transform="matrix(1 0 0 1 82.1035 92.7012)" font-family="'Helvetica-Oblique'" font-size="12">M</text>
+	<text transform="matrix(0.583 0 0 0.583 92.0996 96.6973)" font-family="'Helvetica-Oblique'" font-size="12">2</text>
+	<text transform="matrix(1 0 0 1 8.083 45.8965)" font-family="'Helvetica-Oblique'" font-size="12">L</text>
+	<text transform="matrix(0.583 0 0 0.583 14.7568 49.8926)" font-family="'Helvetica-Oblique'" font-size="12">1</text>
+	<text transform="matrix(1 0 0 1 52.7837 78.9995)" font-family="'Helvetica-Oblique'" font-size="12">L</text>
+	<text transform="matrix(0.583 0 0 0.583 59.4575 82.9956)" font-family="'Helvetica-Oblique'" font-size="12">2</text>
+	<text transform="matrix(1 0 0 1 105.856 53.3296)" font-family="'Helvetica-Oblique'" font-size="12">L</text>
+	<text transform="matrix(0.583 0 0 0.583 112.5298 57.3257)" font-family="'Helvetica-Oblique'" font-size="12">3</text>
+	<g>
+		<g>
+			<line fill="none" stroke="#231F20" stroke-miterlimit="10" x1="126.186" y1="72.165" x2="126.186" y2="90.938"/>
+			<g>
+				<polygon fill="#231F20" points="122.482,88.129 126.186,89.702 129.889,88.129 126.186,96.907 				"/>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(0.583 0 0 0.583 118.7837 76.0474)" font-family="'Helvetica-Bold'" font-size="12">g</text>
+</g>
+</svg>
