@@ -1,0 +1,19 @@
+Star Wars data are from http://swapi.co; names and data are property
+of Disney (used to be Lucasfilms, Ltd).
+
+planets.dat
+     - space separated
+     - name  diameter  terrain
+
+people.csv
+     - comma separated
+     - name,home world,eye color,mass
+
+vehicles.csv
+     - comma separated
+     - name,model,vehicle_class,max_atmospheric_speed,cost_in_credits
+
+starships.csv
+     - comma separated
+     - name,model,vehicle_class,max_atmospheric_speed,cost_in_credits,length
+
