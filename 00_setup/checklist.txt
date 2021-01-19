@@ -1,0 +1,55 @@
+Checklist for installation
+==========================
+
+Check everything with [x] when the test passes (see
+https://asu-compmethodsphysics-phy494.github.io/ASU-PHY494//2021/01/12/00_Setting_up_the_environment/#testing)
+
+
+Bash shell
+----------
+
+[ ] ``echo $SHELL`` shows /bin/bash or /usr/bin/bash
+
+
+Git
+---
+
+[ ] ``git --version`` shows something like git version 2.7.0.
+
+
+editor
+------
+
+[ ] You have a text editor installed.
+
+[ ] You know how to create files with your editor.
+
+[ ] You know how to save files in your home directory (or in any
+    directory under your home directory).
+
+[ ] You can launch your editor from the command line.
+
+
+Python
+------
+
+[ ] ``python -c 'import sys; print(sys.version)'`` shows a Python
+    version like 3.7.x or 3.8.x
+
+[ ] ``which python`` shows a path that contains "Anaconda3" or
+    "anaconda3" somewhere.
+
+[ ] ``which conda`` shows a path that contains "Anaconda3" or
+    "anaconda3" somewhere.
+
+
+Jupyter notebook
+----------------
+
+[ ] ``jupyter notebook`` launches the notebook in your browser
+
+[ ] You can create a new notebook with the "New" menu item.
+
+[ ] You can execute ``print("Hello World!") in a notebook cell as
+    indicated by the line "Hello World!" being printed.
+    
