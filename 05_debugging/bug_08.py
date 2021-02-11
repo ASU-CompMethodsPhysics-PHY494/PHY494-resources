@@ -1,5 +1,4 @@
 # bug 7
-# https://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/2019/02/05/05_Debugging/#activity-fix-as-many-bugs-as-possible
 
 # Create a list of squares of the first 10 natural numbers (0, 1, 2, ..., 10) and print their sum:
 

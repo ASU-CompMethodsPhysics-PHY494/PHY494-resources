@@ -1,5 +1,4 @@
 # bug 8
-# https://asu-compmethodsphysics-phy494.github.io/ASU-PHY494/2019/02/05/05_Debugging/#activity-fix-as-many-bugs-as-possible
 
 # Calculate the position of an object in free fall as a function of
 # time and store time points (in 1-s intervals) and positions in two
