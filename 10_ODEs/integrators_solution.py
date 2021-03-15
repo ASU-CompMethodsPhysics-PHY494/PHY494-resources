@@ -2,12 +2,6 @@
 # Copyright (c) 2016-2018 Oliver Beckstein.
 # License: BSD-3 clause
 
-#============================================================
-# NOTE: Code is incomplete. You need to make it work
-#       (see comment IMPLEMENT and replace None with
-#       appropriate code)
-#============================================================
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -59,11 +53,17 @@ def euler(y, f, t, h):
 
 def rk2(y, f, t, h):
     """Runge-Kutta RK2 midpoint"""
-    # IMPLEMENT
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    return y + h*k2
 
 def rk4(y, f, t, h):
     """Runge-Kutta RK4"""
-    # IMPLEMENT
+    k1 = f(t, y)
+    k2 = f(t + 0.5*h, y + 0.5*h*k1)
+    k3 = f(t + 0.5*h, y + 0.5*h*k2)
+    k4 = f(t + h, y + h*k3)
+    return y + h/6 * (k1 + 2*k2 + 2*k3 + k4)
 
 def velocity_verlet(y, f, t, h):
     """Velocity Verlet
@@ -84,7 +84,6 @@ def velocity_verlet(y, f, t, h):
     # full step position
     y[0] += h*y[1]
     # full step velocity (updated positions!)
-    # NOTE: this force evaluation should be used for the next iteration!!!
     F = f(t+h, y)
     y[1] += 0.5*h * F[1]
 
@@ -94,8 +93,8 @@ def velocity_verlet(y, f, t, h):
 # analysis
 
 def kinetic_energy(v, m=1):
-    # IMPLEMENT
-    return None
+    """Kinetic energy 1/2 m v**2"""
+    return 0.5*m*v**2
 
 def energy_conservation(t, y, U, m=1):
     """Energy drift (Tuckerman Eq 3.14.1)"""
