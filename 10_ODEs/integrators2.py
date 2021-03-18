@@ -1,5 +1,5 @@
 # integrators for lesson 10 ODEs
-# Copyright (c) 2016-2018 Oliver Beckstein.
+# Copyright (c) 2016-2021 Oliver Beckstein.
 # License: BSD-3 clause
 
 # Integrating Newton's Equations of Motions in 2D... nD
@@ -211,29 +211,6 @@ def analyze_energies(t, y, U, step=1, **kwargs):
 #------------------------------------------------------------
 # ODE integration
 
-def f_standard(t, y, force, **kwargs):
-    """Force vector in standard ODE form (n=2)
-
-    Arguments
-    ---------
-    t : float
-        time
-    y : array
-        dependent variables in ODE standard form (2d)
-    force : function
-        `force(y[0], **kwargs)` returns force (note: will not be
-        able to handle velocity dependent forces; may use any
-        kwargs but must ignore the ones it does not need)
-    m : float
-        mass
-    **kwargs : keyword arguments
-        Other kwargs that are passed to `force()` (together
-        with `m`)
-    """
-    m = kwargs.get('m', 1)
-    return np.array([y[1], force(y[0], **kwargs)/m])
-
-
 
 def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0.001, mass=1,
                         force=F_harmonic, integrator=euler,
@@ -267,8 +244,9 @@ def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0
        together with the current time and the step `h` and returns
        y at time t+h.
     **kwargs : keyword arguments
-       Other kwargs that are passed to the `force()` function (`mass`
-       is added to the kwargs).
+       Other kwargs that are passed to the `force()` function, such
+       as potential parameters. The `mass` is always included as
+       parameter `m`.
 
     Returns
     -------
@@ -289,10 +267,11 @@ def integrate_newton_2d(x0=np.array([0, 0]), v0=np.array([0, 1]), t_max=100, h=0
     y_values[0, 0, :] = x0
     y_values[0, 1, :] = v0
 
-    # build a function with "our" force
+    # build a gradient function with "our" force
     def f(t, y):
-        """ODE force vector"""
-        return f_standard(t, y, force, m=mass, **kwargs)
+        """ODE force vector (currently only for velocity-independent forces)"""
+        return np.array([y[1], force(y[0], m=mass, **kwargs)/mass])
+
 
     for i, t in enumerate(t_range[:-1]):
         y_values[i+1, :] = integrator(y_values[i].copy(), f, t, h)
